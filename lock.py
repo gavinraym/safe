@@ -1,5 +1,3 @@
-from urllib import request
-
 class Lock():
     def __init__(self):
         pass
@@ -7,16 +5,15 @@ class Lock():
     def __repr__(self):
         return '''Hey Paul! I'm sending you a picture of my kid in his newest \
 outfit. I hope you like it! A garbage truck drove by right as I took \
-the picture, and my kid loves garbage trucks for some reason. You'll \
-see. Anyway, I've encoded the picture with a four digit number. You \
-can use the decode method to get the picture. Good luck!
+the picture, and my kid is fascinated by garbage trucks. Made for a good \
+picture. You'll see. Anyway, I've encoded the file. Good luck!'''
 
-One last thing, the decode method receives a key argument, which \
-has to be a string. Just remember to turn the four digit key int \
-into a string before using it.'''
-
-    def decode(self, source, key, output='decrypted_file'):
-
+    def decode(self, key, source='encrypted_file', output='decrypted_file'):
+        '''
+        This method will decrypt a file using asymmetric XOR decryption.
+        source = string of path
+        key = encryption key, MUST BE A STRING! but can contain any characters
+        '''
         image = open(source, 'rb').read()
         key = key*int(len(image)/4)
         decrypted = bytes([a ^ b for a, b in zip(image, key.encode('utf8'))])
@@ -24,8 +21,12 @@ into a string before using it.'''
         f = open(f'{output}.png', 'wb')
         f.write(decrypted)
 
-    def encode(self, source, key, output='encrypted_file'):
-
+    def encode(self, key, source='encrypted_file', output='encrypted_file'):
+        '''
+        This method will encrypt a file using assymmetric XOR encryption.
+        soure = string of path to write file to.
+        key = string to use as encryption key.
+        '''
         image = open(source, 'rb').read()
         key = key*int(len(image)/4)
         encrypted = bytes([a ^ b for a, b in zip(image, key.encode('utf8'))])
@@ -34,4 +35,4 @@ into a string before using it.'''
         f.write(encrypted)
 
     def backdoor(self):
-        request.urlopen('https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c')
+        return 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
