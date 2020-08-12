@@ -26,7 +26,7 @@ class Safe():
         f.write(dcr_img)
         try:
             Image.open(f).show()
-            f.close
+            f.close()
             print('Safe unlocked!')
         except:
             f.close()
