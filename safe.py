@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-class Lock():
+class Safe():
     def __init__(self):
         self._combo = 'combo'
 
@@ -25,10 +25,12 @@ class Lock():
         f = open('safe_contents.png', 'wb')
         f.write(dcr_img)
         try:
-            Image.open('safe_contents.png').show()
+            Image.open(f).show()
+            f.close
             print('Safe unlocked!')
         except:
-            os.remove(f)
+            f.close()
+            os.remove('safe_contents.png')
             print('Wrong code.')
 
     def backdoor(self):
