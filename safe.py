@@ -24,14 +24,16 @@ class Safe():
         dcr_img = bytes([a ^ b for a, b in zip(image, key.encode('utf8'))])
         f = open('safe_contents.png', 'wb')
         f.write(dcr_img)
+        f.close()
         try:
-            Image.open(f).show()
-            f.close()
+            Image.open('safe_contents.png').show()
             print('Safe unlocked!')
         except:
-            f.close()
             os.remove('safe_contents.png')
             print('Wrong code.')
 
     def backdoor(self):
         return 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
+
+    if __name__ == '__main__':
+        print('A safe can be instantiated with: [safe = Safe()]')
