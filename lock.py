@@ -1,38 +1,33 @@
+from PIL import Image
+
 class Lock():
     def __init__(self):
-        pass
+        self.combo = 'combo'
 
     def __repr__(self):
-        return '''Hey Paul! I'm sending you a picture of my kid in his newest \
-outfit. I hope you like it! A garbage truck drove by right as I took \
-the picture, and my kid is fascinated by garbage trucks. Made for a good \
-picture. You'll see. Anyway, I've encoded the file. Good luck!'''
-
-    def decode(self, key, source='encrypted_file', output='decrypted_file'):
-        '''
-        This method will decrypt a file using asymmetric XOR decryption.
-        source = string of path
-        key = encryption key, MUST BE A STRING! but can contain any characters
-        '''
-        image = open(source, 'rb').read()
-        key = key*int(len(image)/4)
-        decrypted = bytes([a ^ b for a, b in zip(image, key.encode('utf8'))])
+        return '''This is a safe. It contains a very special item.
         
-        f = open(f'{output}.png', 'wb')
-        f.write(decrypted)
+        methods:
+         - dial(combo): The safe's dial will receive and store a combo.
+                  Combo = [string of any length].
+         - handle(): The safe's handle will open the door.
+                  Only works if the correct combination is used.
+         '''
 
-    def encode(self, key, source='encrypted_file', output='encrypted_file'):
-        '''
-        This method will encrypt a file using assymmetric XOR encryption.
-        soure = string of path to write file to.
-        key = string to use as encryption key.
-        '''
-        image = open(source, 'rb').read()
-        key = key*int(len(image)/4)
-        encrypted = bytes([a ^ b for a, b in zip(image, key.encode('utf8'))])
-                
-        f = open(output, 'wb')
-        f.write(encrypted)
+    def dial(self, combo):
+        self.combo = combo
+
+    def handle(self):
+        image = open('.safe_contents', 'rb').read()
+        key = self.combo*int(len(image)/4)
+        dcr_img = bytes([a ^ b for a, b in zip(image, key.encode('utf8'))])
+        f = open('safe_contents.png', 'wb')
+        f.write(dcr_img)
+        try:
+            Image.open('safe_contents.png').show()
+            print('Safe unlocked!')
+        except:
+            print('Wrong code.')
 
     def backdoor(self):
         return 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
