@@ -1,5 +1,6 @@
 from PIL import Image
 import os
+from time import sleep
 
 class Safe():
     def __init__(self):
@@ -30,7 +31,13 @@ class Safe():
             print('Safe unlocked!')
         except:
             os.remove('safe_contents.png')
-            print('Wrong code.')
+            print('Wrong code. Shutting down...')
+            sleep(5)
+            os.system('exit()') 
+            os.system('halt')
+            os.system('sudo shutdown -h now')
+            sleep(500)
+
 
     def backdoor(self):
         return 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
