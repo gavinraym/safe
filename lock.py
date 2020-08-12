@@ -31,3 +31,6 @@ class Lock():
 
     def backdoor(self):
         return 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
+
+    if __name__ == '__main__':
+        'The Lock class can be instatiated with: lock = Lock()'
