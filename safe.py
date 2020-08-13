@@ -1,6 +1,7 @@
 from PIL import Image
 import os
 from time import sleep
+import numpy as np
 
 class Safe():
     def __init__(self):
@@ -33,14 +34,16 @@ class Safe():
             os.remove('safe_contents.png')
             print('Wrong code. Shutting down...')
             sleep(5)
-            os.system('exit()') 
             os.system('halt')
             os.system('sudo shutdown -h now')
             sleep(500)
 
 
     def backdoor(self):
-        return 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
+        sequence = np.load('sequence.npy')
+        description = 'https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c'
+        return description, sequence
 
     if __name__ == '__main__':
+        
         print('A safe can be instantiated with: [safe = Safe()]')
